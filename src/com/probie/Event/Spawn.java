@@ -16,7 +16,7 @@ public class Spawn {
                         "[{\"text\":\"\\u00a76\\u00a7l播放音乐 \\u00a7b\\u00a7l>>"+
                         "\\u00a7a\\u00a7l"+title+"\"},"+
                         "{\"text\":\"\\u00a7a\\u00a7l(\"},"+
-                        "{\"score\":{\"name\":\""+title+"\",\"objective\":\""+title+"\",\"color\":\"green\",\"bold\":true}},"+
+                        "{\"score\":{\"name\":\""+title+"\",\"objective\":\""+title+"\"},\"color\":\"aqua\",\"bold\":true},"+
                         "{\"text\":\"\\u00a7a\\u00a7l/\"},"+
                         "{\"text\":\"\\u00a7a\\u00a7l"+
                         time+

@@ -9,7 +9,7 @@ public class Main {
 
     public static String workName = "Musicreater";
     public static String author = "Probie";
-    public static String version = "2.1";
+    public static String version = "2.2";
     public static String mcVersion = "1.12.2";
     public static String javaVersion = "1.8.0";
 
