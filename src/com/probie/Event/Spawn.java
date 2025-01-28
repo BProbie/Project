@@ -6,13 +6,23 @@ import com.programe.probie.ProgrameTool.Computer.Windows;
 
 public class Spawn {
     public static void function(String title,String value) {
+        String[] values = value.replaceAll("\n","").split(" ");
         String function =
                 "scoreboard players tag @s add "+title+
                 "\nexecute @s ~ ~ ~ scoreboard objectives add "+title+" dummy"+
                 "\nexecute @s ~ ~ ~ gamerule gameLoopFunction music:"+title+
-                "\ntitle @a actionbar \"\\u00a76\\u00a7l播放音乐 \\u00a7b\\u00a7l>>\\u00a7a\\u00a7l"+title+"\\u00a7b\\u00a7l<<\\u00a7r\""+
+                "\ntitle @a actionbar "+
+                        "[{\"text\":\"\\u00a76\\u00a7l播放音乐 \\u00a7b\\u00a7l>>"+
+                        "\\u00a7a\\u00a7l"+title+"\"},"+
+                        "{\"text\":\"\\u00a7a\\u00a7l(\"},"+
+                        "{\"score\":{\"name\":\""+title+"\",\"objective\":\""+title+"\",\"color\":\"green\",\"bold\":true}},"+
+                        "{\"text\":\"\\u00a7a\\u00a7l/\"},"+
+                        "{\"text\":\"\\u00a7a\\u00a7l"+
+                        10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed")))+
+                        "\"},"+
+                        "{\"text\":"+"\"\\u00a7a\\u00a7l)\"},"+
+                        "{\"text\":\"\\u00a7b\\u00a7l<<\\u00a7r\"}]"+
                 "\nscoreboard players add @a[tag="+title+"] "+title+" 1";
-        String[] values = value.replaceAll("\n","").split(" ");
         for (int i = 10; i < 10 + values.length * Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))); i += Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed")))) {
             switch (values[((i-10)/Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))]) {
                 case "0↓":
