@@ -1,8 +1,9 @@
 scoreboard players tag @s add 花海
 execute @s ~ ~ ~ scoreboard objectives add 花海 dummy
 execute @s ~ ~ ~ gamerule gameLoopFunction music:花海
-title @a actionbar "\u00a76\u00a7l播放音乐 \u00a7b\u00a7l>>\u00a7a\u00a7l花海\u00a7b\u00a7l<<\u00a7r"
+title @a actionbar [{"text":"\u00a76\u00a7l播放音乐 \u00a7b\u00a7l>>\u00a7a\u00a7l花海"},{"text":"\u00a7a\u00a7l("},{"score":{"name":"花海","objective":"花海","color":"green","bold":true}},{"text":"\u00a7a\u00a7l/"},{"text":"\u00a7a\u00a7l1030"},{"text":"\u00a7a\u00a7l)"},{"text":"\u00a7b\u00a7l<<\u00a7r"}]
 scoreboard players add @a[tag=花海] 花海 1
+scoreboard players add 花海 花海 1
 execute @a[score_花海_min=10,score_花海=10] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 0.707
 execute @a[score_花海_min=15,score_花海=15] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 0.891
 execute @a[score_花海_min=20,score_花海=20] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 0.891

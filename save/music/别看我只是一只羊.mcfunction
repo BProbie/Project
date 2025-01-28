@@ -1,8 +1,9 @@
 scoreboard players tag @s add 别看我只是一只羊
 execute @s ~ ~ ~ scoreboard objectives add 别看我只是一只羊 dummy
 execute @s ~ ~ ~ gamerule gameLoopFunction music:别看我只是一只羊
-title @a actionbar "\u00a76\u00a7l播放音乐 \u00a7b\u00a7l>>\u00a7a\u00a7l别看我只是一只羊\u00a7b\u00a7l<<\u00a7r"
+title @a actionbar [{"text":"\u00a76\u00a7l播放音乐 \u00a7b\u00a7l>>\u00a7a\u00a7l别看我只是一只羊"},{"text":"\u00a7a\u00a7l("},{"score":{"name":"别看我只是一只羊","objective":"别看我只是一只羊","color":"green","bold":true}},{"text":"\u00a7a\u00a7l/"},{"text":"\u00a7a\u00a7l1285"},{"text":"\u00a7a\u00a7l)"},{"text":"\u00a7b\u00a7l<<\u00a7r"}]
 scoreboard players add @a[tag=别看我只是一只羊] 别看我只是一只羊 1
+scoreboard players add 别看我只是一只羊 别看我只是一只羊 1
 execute @a[score_别看我只是一只羊_min=15,score_别看我只是一只羊=15] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 1.782
 execute @a[score_别看我只是一只羊_min=20,score_别看我只是一只羊=20] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 1.782
 execute @a[score_别看我只是一只羊_min=25,score_别看我只是一只羊=25] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 1.782

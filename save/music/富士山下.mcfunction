@@ -1,8 +1,9 @@
 scoreboard players tag @s add 富士山下
 execute @s ~ ~ ~ scoreboard objectives add 富士山下 dummy
 execute @s ~ ~ ~ gamerule gameLoopFunction music:富士山下
-title @a actionbar "\u00a76\u00a7l播放音乐 \u00a7b\u00a7l>>\u00a7a\u00a7l富士山下\u00a7b\u00a7l<<\u00a7r"
+title @a actionbar [{"text":"\u00a76\u00a7l播放音乐 \u00a7b\u00a7l>>\u00a7a\u00a7l富士山下"},{"text":"\u00a7a\u00a7l("},{"score":{"name":"富士山下","objective":"富士山下","color":"green","bold":true}},{"text":"\u00a7a\u00a7l/"},{"text":"\u00a7a\u00a7l2980"},{"text":"\u00a7a\u00a7l)"},{"text":"\u00a7b\u00a7l<<\u00a7r"}]
 scoreboard players add @a[tag=富士山下] 富士山下 1
+scoreboard players add 富士山下 富士山下 1
 execute @a[score_富士山下_min=10,score_富士山下=10] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 0.530
 execute @a[score_富士山下_min=15,score_富士山下=15] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 0.595
 execute @a[score_富士山下_min=20,score_富士山下=20] ~ ~ ~ playsound minecraft:block.note.harp music @a ~ ~ ~ 9 0.707

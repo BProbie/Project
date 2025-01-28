@@ -7,6 +7,7 @@ import com.programe.probie.ProgrameTool.Computer.Windows;
 public class Spawn {
     public static void function(String title,String value) {
         String[] values = value.replaceAll("\n","").split(" ");
+        int time = 10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed")));
         String function =
                 "scoreboard players tag @s add "+title+
                 "\nexecute @s ~ ~ ~ scoreboard objectives add "+title+" dummy"+
@@ -18,12 +19,13 @@ public class Spawn {
                         "{\"score\":{\"name\":\""+title+"\",\"objective\":\""+title+"\",\"color\":\"green\",\"bold\":true}},"+
                         "{\"text\":\"\\u00a7a\\u00a7l/\"},"+
                         "{\"text\":\"\\u00a7a\\u00a7l"+
-                        10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed")))+
+                        time+
                         "\"},"+
                         "{\"text\":"+"\"\\u00a7a\\u00a7l)\"},"+
                         "{\"text\":\"\\u00a7b\\u00a7l<<\\u00a7r\"}]"+
-                "\nscoreboard players add @a[tag="+title+"] "+title+" 1";
-        for (int i = 10; i < 10 + values.length * Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))); i += Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed")))) {
+                "\nscoreboard players add @a[tag="+title+"] "+title+" 1"+
+                "\nscoreboard players add "+title+" "+title+" 1";
+        for (int i = 10; i < time; i += Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed")))) {
             switch (values[((i-10)/Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))]) {
                 case "0↓":
                     break;
@@ -100,19 +102,19 @@ public class Spawn {
         }
         function = function +
                 "\nexecute @a[score_"+title+"_min="+
-                (10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))+
+                (time)+
                 ",score_"+title+"="+
-                (10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))+
+                (time)+
                 "] ~ ~ ~ gamerule gameLoopFunction -"+
                 "\nexecute @a[score_"+title+"_min="+
-                (10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))+
+                (time)+
                 ",score_"+title+"="+
-                (10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))+
+                (time)+
                 "] ~ ~ ~ scoreboard objectives remove "+title+
                 "\nexecute @a[score_"+title+"_min="+
-                (10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))+
+                (time)+
                 ",score_"+title+"="+
-                (10+values.length*Integer.parseInt(Objects.requireNonNull(Data.getData("functionSpeed"))))+
+                (time)+
                 "] ~ ~ ~ scoreboard players tag @s remove "+title;
 
         Windows.writeFile(Data.getData("spawnFunction")+"\\"+title+".mcfunction",function);
