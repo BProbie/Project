@@ -1,0 +1,16 @@
+[
+{
+  "modid": "guardian",
+  "name": "guardian",
+  "description": "Guard The Server",
+  "version": "2.0.0",
+  "mcversion": "1.12.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Probie"],
+  "credits": "The Forge and FML guys for making this guard",
+  "logoFile": "image/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
