@@ -5,9 +5,8 @@ import java.util.Objects;
 
 import com.mod.forge.mc.probie.Main;
 import net.minecraftforge.fml.common.Mod;
+import com.mod.forge.mc.probie.command.Kick;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -23,13 +22,13 @@ public class Login {
             HashMap<String, String> valueMap = Main.getBanProperties().getValueMap();
             for (String key : valueMap.keySet()) {
                 EntityPlayerMP entityPlayerMP = Objects.requireNonNull(
-                        FMLCommonHandler.instance().getMinecraftServerInstance().
+                        Main.getMinecraftServer().
                                 getPlayerList().getPlayerByUsername(
                                         playerLoggedInEvent.player.getName()));
                 if (entityPlayerMP.getName().equals(key)) {
-                    entityPlayerMP.connection.disconnect(new TextComponentTranslation(valueMap.get(key)));
-                } else if (entityPlayerMP.getPlayerIP().equals(key)) {
-                    entityPlayerMP.connection.disconnect(new TextComponentTranslation(valueMap.get(key)));
+                    Kick.kickPlayer(entityPlayerMP, valueMap.get(key));
+                } else if (valueMap.get(entityPlayerMP.getName() + "-" + "IP").equals(key)) {
+                    Kick.kickPlayer(entityPlayerMP, valueMap.get(key));
                 }
             }
         }

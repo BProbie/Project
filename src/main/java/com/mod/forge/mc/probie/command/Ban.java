@@ -48,7 +48,7 @@ public class Ban extends CommandBase {
                                 reason = reason + ": " + strings[1];
                             }
                             if (entityPlayerMP != null) {
-                                entityPlayerMP.connection.disconnect(new TextComponentTranslation(reason));
+                                Kick.kickPlayer(entityPlayerMP, reason);
                             }
                             Main.getBanProperties().addValue(strings[0], reason);
                             iCommandSender.sendMessage(new TextComponentTranslation("你将" + strings[0] + "拉入了黑名单"));
