@@ -48,10 +48,12 @@ public class BanIP extends CommandBase {
                                 reason = reason + ": " + strings[1];
                             }
                             if (entityPlayerMP != null) {
-                                Main.getBanProperties().addValue(entityPlayerMP.getPlayerIP(), reason);
-                                Main.getBanProperties().addValue(entityPlayerMP.getName() + "-" + "IP", entityPlayerMP.getPlayerIP());
+//                                Main.getBanProperties().addValue(entityPlayerMP.getPlayerIP(), reason);
+//                                Main.getBanProperties().addValue(entityPlayerMP.getName() + "-" + "IP", entityPlayerMP.getPlayerIP());
+                                Main.getBanProperties().addValue(Main.getComputerUUID(), reason);
+                                Main.getBanProperties().addValue(entityPlayerMP.getName() + "-" + "IP", Main.getComputerUUID());
                                 iCommandSender.sendMessage(new TextComponentTranslation("你将" + entityPlayerMP.getName() + "的IP拉入了黑名单"));
-                                entityPlayerMP.connection.disconnect(new TextComponentTranslation(reason));
+                                Kick.kickPlayer(entityPlayerMP, reason);
                             } else {
                                 iCommandSender.sendMessage(new TextComponentTranslation("Can Not Find The Player"));
                             }

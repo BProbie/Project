@@ -7,7 +7,13 @@
 
 package com.mod.forge.mc.probie;
 
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import com.mod.forge.mc.probie.command.*;
+import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import com.programe.probie.ProgrameTool.Computer.Windows;
 import com.programe.probie.ProgrameTool.Datasql.Properties;
@@ -19,15 +25,24 @@ public class Main {
 
     public static final String modId = "guardian";
     public static final String name = "guardian";
-    public static final String version = "2.0.0";
+    public static final String version = "2.1.0";
 
     public static final String mcversion = "1.12.2";
     public static final String Author = "Probie";
+
+    public static final String github = "";  //TODO
+    public static final String renew = "";  //TODO
 
     private static final Properties banProperties = new Properties();
 
     public static Properties getBanProperties() {
         return banProperties;
+    }
+
+    protected static final MinecraftServer minecraftServer = FMLCommonHandler.instance().getMinecraftServerInstance();
+
+    public static MinecraftServer getMinecraftServer() {
+        return minecraftServer;
     }
 
     protected static String hostName;
@@ -49,6 +64,7 @@ public class Main {
 
     @Mod.EventHandler
     public void fmlServerStartingEvent(FMLServerStartingEvent fmlServerStartingEvent) {
+        fmlServerStartingEvent.registerServerCommand(new Kill());
         fmlServerStartingEvent.registerServerCommand(new Fly());
         fmlServerStartingEvent.registerServerCommand(new Op());
         fmlServerStartingEvent.registerServerCommand(new Deop());
@@ -58,6 +74,27 @@ public class Main {
         fmlServerStartingEvent.registerServerCommand(new BanIP());
         fmlServerStartingEvent.registerServerCommand(new DebanIP());
         fmlServerStartingEvent.registerServerCommand(new Fps());
+        fmlServerStartingEvent.registerServerCommand(new BanProperties());
     }
 
+    public static void main(String[] args) {
+
+    }
+
+    public static String getComputerUUID() {
+        String computerUUID = "null";
+        try {
+            Process process = Runtime.getRuntime().exec("wmic csproduct get uuid");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            reader.readLine();
+            if ((line = reader.readLine()) != null) {
+                computerUUID = line.trim();
+            }
+            reader.close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        return computerUUID;
+    }
 }

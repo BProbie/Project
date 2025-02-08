@@ -1,7 +1,6 @@
 package com.mod.forge.mc.probie.event;
 
 import com.mod.forge.mc.probie.Main;
-import net.minecraft.command.CommandKill;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.event.CommandEvent;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -17,12 +16,6 @@ public class Command {
                 commandEvent.getCommand().getName().equalsIgnoreCase("publish")) {
             commandEvent.getSender().sendMessage(new TextComponentTranslation("The Command Was Banned"));
             commandEvent.setCanceled(true);
-        } else if (commandEvent.getCommand() instanceof CommandKill ||
-                commandEvent.getCommand().getName().equalsIgnoreCase("kill")) {
-            if (!commandEvent.getParameters()[0].equalsIgnoreCase("@e[type=!player]")) {
-                commandEvent.getSender().sendMessage(new TextComponentTranslation("The Command Was Banned"));
-                commandEvent.setCanceled(true);
-            }
         }
     }
 }
