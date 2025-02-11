@@ -7,13 +7,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber(modid = Main.modId)
 public class BlockPlace {
     private static HashMap<String, Long> hashMap = new HashMap<>();
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void blockPlace(BlockEvent.EntityPlaceEvent entityPlaceEvent) {
         if (entityPlaceEvent.getEntity() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityPlaceEvent.getEntity();
