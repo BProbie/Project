@@ -35,7 +35,7 @@ public class Kill extends CommandBase {
     @Override
     public void execute(MinecraftServer minecraftServer, ICommandSender iCommandSender, String[] strings) throws CommandException {
         if (strings.length == 0) {
-            iCommandSender.sendMessage(new TextComponentTranslation("The Command Was Banned"));
+            iCommandSender.sendMessage(new TextComponentTranslation("该指令已被禁用"));
         } else {
             Entity entity = getEntity(minecraftServer, iCommandSender, strings[0]);
             if (!(entity instanceof EntityPlayer)) {

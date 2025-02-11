@@ -46,23 +46,30 @@ public class Kick extends CommandBase {
                         if (strings.length == 2) {
                             reason = reason + ": " + strings[1];
                         }
-                        Kick.kickPlayer(entityPlayerMP,reason);
-                        iCommandSender.sendMessage(new TextComponentTranslation("你将" + entityPlayerMP.getName() + "踢出了游戏"));
+                        if (kickPlayer(entityPlayerMP, reason)) {
+                            iCommandSender.sendMessage(new TextComponentTranslation("你将" + entityPlayerMP.getName() + "踢出了游戏"));
+                        } else {
+                            iCommandSender.sendMessage(new TextComponentTranslation("出现了未知的错误"));
+                        }
                     } else {
-                        iCommandSender.sendMessage(new TextComponentTranslation("Can Not Find The Player"));
+                        iCommandSender.sendMessage(new TextComponentTranslation("找不到玩家" + strings[0]));
                     }
                 } else {
-                    iCommandSender.sendMessage(new TextComponentTranslation("Usage: /kick <player> <reason>"));
+                    iCommandSender.sendMessage(new TextComponentTranslation("使用方法: /kick <player> <reason>"));
                 }
             } else {
-                iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Host"));
+                iCommandSender.sendMessage(new TextComponentTranslation("你没有服主权限"));
             }
         } else {
-            iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Player"));
+            iCommandSender.sendMessage(new TextComponentTranslation("请在游戏中使用"));
         }
     }
 
-    public static void kickPlayer(EntityPlayerMP player,String reason) {
-        player.connection.disconnect(new TextComponentTranslation(reason));
+    public static boolean kickPlayer(EntityPlayerMP entityPlayerMP, String reason) {
+        if (entityPlayerMP != null) {
+            entityPlayerMP.connection.disconnect(new TextComponentTranslation(reason));
+            return true;
+        }
+        return false;
     }
 }

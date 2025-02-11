@@ -25,12 +25,14 @@ public class Windows {
         }
     }
 
-    public static void open(String path) {
+    public static boolean open(String path) {
         try {
             Desktop.getDesktop().open(new File(path));
+            return true;
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+        return false;
     }
 
     public static String readFile(String path) {

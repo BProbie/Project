@@ -48,29 +48,46 @@ public class BanIP extends CommandBase {
                                 reason = reason + ": " + strings[1];
                             }
                             if (entityPlayerMP != null) {
-//                                Main.getBanProperties().addValue(entityPlayerMP.getPlayerIP(), reason);
-//                                Main.getBanProperties().addValue(entityPlayerMP.getName() + "-" + "IP", entityPlayerMP.getPlayerIP());
-                                Main.getBanProperties().addValue(Main.getComputerUUID(), reason);
-                                Main.getBanProperties().addValue(entityPlayerMP.getName() + "-" + "IP", Main.getComputerUUID());
-                                iCommandSender.sendMessage(new TextComponentTranslation("你将" + entityPlayerMP.getName() + "的IP拉入了黑名单"));
-                                Kick.kickPlayer(entityPlayerMP, reason);
+                                if (Main.getCanBanIP()) {
+                                    if (banipPlayer(entityPlayerMP, reason)) {
+                                        iCommandSender.sendMessage(new TextComponentTranslation("你将" + entityPlayerMP.getName() + "的IP拉入了黑名单"));
+                                    } else {
+                                        iCommandSender.sendMessage(new TextComponentTranslation("出现了未知的错误"));
+                                    }
+                                } else {
+                                    iCommandSender.sendMessage(new TextComponentTranslation("该指令已被禁用"));
+                                }
                             } else {
-                                iCommandSender.sendMessage(new TextComponentTranslation("Can Not Find The Player"));
+                                iCommandSender.sendMessage(new TextComponentTranslation("找不到玩家"));
                             }
                         } else {
                             iCommandSender.sendMessage(new TextComponentTranslation("配置文件加载失败"));
                         }
                     } else {
-                        iCommandSender.sendMessage(new TextComponentTranslation("Can Not Ban Yourself"));
+                        iCommandSender.sendMessage(new TextComponentTranslation("不能将自己拉入黑名单"));
                     }
                 } else {
-                    iCommandSender.sendMessage(new TextComponentTranslation("Usage: /banip <player> <reason>"));
+                    iCommandSender.sendMessage(new TextComponentTranslation("使用方法: /banip <player> <reason>"));
                 }
             } else {
-                iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Host"));
+                iCommandSender.sendMessage(new TextComponentTranslation("你没有服主权限"));
             }
         } else {
-            iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Player"));
+            iCommandSender.sendMessage(new TextComponentTranslation("请在游戏中使用"));
         }
+    }
+
+    public static boolean banipPlayer(EntityPlayerMP entityPlayerMP, String reason) {
+        if (Main.getBanProperties().connection()) {
+            if (entityPlayerMP != null) {
+                Kick.kickPlayer(entityPlayerMP, reason);
+//                Main.getBanProperties().addValue(entityPlayerMP.getPlayerIP(), reason);
+//                Main.getBanProperties().addValue(entityPlayerMP.getName() + "-" + "IP", entityPlayerMP.getPlayerIP());
+                Main.getBanProperties().addValue(Main.getComputerUUID(), reason);
+                Main.getBanProperties().addValue(entityPlayerMP.getName() + "-" + "IP", Main.getComputerUUID());
+                return true;
+            }
+        }
+        return false;
     }
 }

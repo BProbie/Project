@@ -1,18 +1,18 @@
 package com.mod.forge.mc.probie.command;
 
+import java.util.List;
+import java.util.Collections;
+import javax.annotation.Nullable;
+
 import com.mod.forge.mc.probie.Main;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.command.CommandException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
-
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.List;
 
 public class Op extends CommandBase {
     @Override
@@ -42,20 +42,31 @@ public class Op extends CommandBase {
                 if (strings.length == 1) {
                     EntityPlayerMP entityPlayerMP = minecraftServer.getPlayerList().getPlayerByUsername(strings[0]);
                     if (entityPlayerMP != null) {
-                        minecraftServer.getPlayerList().addOp(entityPlayerMP.getGameProfile());
-                        entityPlayerMP.sendMessage(new TextComponentTranslation(iCommandSender.getName()+"给予了你管理员权限"));
-                        iCommandSender.sendMessage(new TextComponentTranslation("你给予了"+entityPlayerMP.getName()+"管理员权限"));
+                        if (opPlayer(minecraftServer, entityPlayerMP)) {
+                            entityPlayerMP.sendMessage(new TextComponentTranslation(iCommandSender.getName() + "给予了你管理员权限"));
+                            iCommandSender.sendMessage(new TextComponentTranslation("你给予了" + entityPlayerMP.getName() + "管理员权限"));
+                        } else {
+                            iCommandSender.sendMessage(new TextComponentTranslation("出现了未知的错误"));
+                        }
                     } else {
-                        iCommandSender.sendMessage(new TextComponentTranslation("Can Not Find The Player"));
+                        iCommandSender.sendMessage(new TextComponentTranslation("找不到玩家" + strings[0]));
                     }
                 } else {
-                    iCommandSender.sendMessage(new TextComponentTranslation("Usage: /op <player>"));
+                    iCommandSender.sendMessage(new TextComponentTranslation("使用方法: /op <player>"));
                 }
             } else {
-                iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Host"));
+                iCommandSender.sendMessage(new TextComponentTranslation("你没有房主权限"));
             }
         } else {
-            iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Player"));
+            iCommandSender.sendMessage(new TextComponentTranslation("请在游戏中使用"));
         }
+    }
+
+    public static boolean opPlayer(MinecraftServer minecraftServer, EntityPlayerMP entityPlayerMP) {
+        if (entityPlayerMP != null) {
+            minecraftServer.getPlayerList().addOp(entityPlayerMP.getGameProfile());
+            return true;
+        }
+        return false;
     }
 }

@@ -17,7 +17,7 @@ public class Tick {
             if (!player.capabilities.allowFlying) {
                 player.capabilities.isFlying = false;
                 player.sendPlayerAbilities();
-                Main.getMinecraftServer().getPlayerList().sendMessage(new TextComponentTranslation("检测到玩家"+player.getName()+"疑似作弊"));
+                Main.getMinecraftServer().getPlayerList().sendMessage(new TextComponentTranslation("检测到玩家" + player.getName() + "疑似作弊"));
             }
         }
     }

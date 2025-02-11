@@ -1,7 +1,7 @@
 package com.mod.forge.mc.probie.event;
 
-import java.util.HashMap;
 import java.util.Objects;
+import java.util.HashMap;
 
 import com.mod.forge.mc.probie.Main;
 import net.minecraftforge.fml.common.Mod;

@@ -25,7 +25,7 @@ public class Main {
 
     public static final String modId = "guardian";
     public static final String name = "guardian";
-    public static final String version = "2.1.0";
+    public static final String version = "3.0.0";
 
     public static final String mcversion = "1.12.2";
     public static final String Author = "Probie";
@@ -54,6 +54,16 @@ public class Main {
 
     public static String getHostName() {
         return hostName;
+    }
+
+    protected static boolean canBanIP = false;
+
+    public static void setCanBanIP(boolean canBanIP) {
+        Main.canBanIP = canBanIP;
+    }
+
+    public static boolean getCanBanIP() {
+        return canBanIP;
     }
 
     @Mod.EventHandler

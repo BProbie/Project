@@ -42,30 +42,41 @@ public class Ban extends CommandBase {
                 if (strings.length == 1 || strings.length == 2) {
                     if (!strings[0].equals(iCommandSender.getName())) {
                         if (Main.getBanProperties().connection()) {
-                            EntityPlayerMP entityPlayerMP = minecraftServer.getPlayerList().getPlayerByUsername(strings[0]);
                             String reason = iCommandSender.getName() + "将你拉入了黑名单";
                             if (strings.length == 2) {
                                 reason = reason + ": " + strings[1];
                             }
-                            if (entityPlayerMP != null) {
-                                Kick.kickPlayer(entityPlayerMP, reason);
+                            if (banPlayer(strings[0], reason)) {
+                                iCommandSender.sendMessage(new TextComponentTranslation("你将" + strings[0] + "拉入了黑名单"));
+                            } else {
+                                iCommandSender.sendMessage(new TextComponentTranslation("出现了未知的错误"));
                             }
-                            Main.getBanProperties().addValue(strings[0], reason);
-                            iCommandSender.sendMessage(new TextComponentTranslation("你将" + strings[0] + "拉入了黑名单"));
                         } else {
                             iCommandSender.sendMessage(new TextComponentTranslation("配置文件加载失败"));
                         }
                     } else {
-                        iCommandSender.sendMessage(new TextComponentTranslation("Can Not Ban Yourself"));
+                        iCommandSender.sendMessage(new TextComponentTranslation("不能将自己拉入黑名单"));
                     }
                 } else {
-                    iCommandSender.sendMessage(new TextComponentTranslation("Usage: /ban <player> <reason>"));
+                    iCommandSender.sendMessage(new TextComponentTranslation("使用方法: /ban <player> <reason>"));
                 }
             } else {
-                iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Host"));
+                iCommandSender.sendMessage(new TextComponentTranslation("你没有服主权限"));
             }
         } else {
-            iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Player"));
+            iCommandSender.sendMessage(new TextComponentTranslation("请在游戏中使用"));
         }
+    }
+
+    public static boolean banPlayer(String name, String reason) {
+        if (Main.getBanProperties().connection()) {
+            EntityPlayerMP entityPlayerMP = Main.getMinecraftServer().getPlayerList().getPlayerByUsername(name);
+            if (entityPlayerMP != null) {
+                Kick.kickPlayer(entityPlayerMP, reason);
+            }
+            Main.getBanProperties().addValue(name, reason);
+            return true;
+        }
+        return false;
     }
 }

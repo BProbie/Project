@@ -36,9 +36,7 @@ public class DebanIP extends CommandBase {
         ArrayList<String> arrayList = new ArrayList<>();
         if (Main.getBanProperties().connection()) {
             HashMap<String, String> valueMap = Main.getBanProperties().getValueMap();
-            for (String key : valueMap.keySet()) {
-                arrayList.add(valueMap.get(key));
-            }
+            arrayList.addAll(valueMap.keySet());
         }
         return strings.length == 1 ? getListOfStringsMatchingLastWord(strings, arrayList) : Collections.emptyList();
     }
@@ -49,19 +47,35 @@ public class DebanIP extends CommandBase {
             if (iCommandSender.getName().equals(Main.getHostName())) {
                 if (strings.length == 1) {
                     if (Main.getBanProperties().connection()) {
-                        Main.getBanProperties().deleteValue(Main.getBanProperties().getValue(strings[0] + "-" + "IP"));
-                        iCommandSender.sendMessage(new TextComponentTranslation("你将" + strings[0] + "的IP拉出了黑名单"));
+                        if (Main.getBanProperties().getValueMap().containsKey(strings[0] + "-" + "IP")) {
+                            if (debanipPlayer(strings[0])) {
+                                iCommandSender.sendMessage(new TextComponentTranslation("你将" + strings[0] + "的IP拉出了黑名单"));
+                            } else {
+                                iCommandSender.sendMessage(new TextComponentTranslation("出现了未知的错误"));
+                            }
+                            iCommandSender.sendMessage(new TextComponentTranslation("找不到玩家" + strings[0]));
+                        }
                     } else {
                         iCommandSender.sendMessage(new TextComponentTranslation("配置文件加载失败"));
                     }
                 } else {
-                    iCommandSender.sendMessage(new TextComponentTranslation("Usage: /debanip <player>"));
+                    iCommandSender.sendMessage(new TextComponentTranslation("使用方法: /debanip <player>"));
                 }
             } else {
-                iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Host"));
+                iCommandSender.sendMessage(new TextComponentTranslation("你没有房主权限"));
             }
         } else {
-            iCommandSender.sendMessage(new TextComponentTranslation("Please Use The Command By Player"));
+            iCommandSender.sendMessage(new TextComponentTranslation("请在游戏中使用"));
         }
+    }
+
+    public static boolean debanipPlayer(String name) {
+        if (Main.getBanProperties().connection()) {
+            if (Main.getBanProperties().getValueMap().containsKey(name + "-" + "IP")) {
+                Main.getBanProperties().deleteValue(Main.getBanProperties().getValue(name + "-" + "IP"));
+                return true;
+            }
+        }
+        return false;
     }
 }

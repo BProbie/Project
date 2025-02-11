@@ -14,7 +14,7 @@ public class Command {
     public static void command(CommandEvent commandEvent) {
         if (commandEvent.getCommand() instanceof CommandPublishLocalServer ||
                 commandEvent.getCommand().getName().equalsIgnoreCase("publish")) {
-            commandEvent.getSender().sendMessage(new TextComponentTranslation("The Command Was Banned"));
+            commandEvent.getSender().sendMessage(new TextComponentTranslation("该指令已被禁用"));
             commandEvent.setCanceled(true);
         }
     }
