@@ -1,12 +1,12 @@
 package com.mod.forge.mc.probie.command;
 
+import api.Windows;
 import com.mod.forge.mc.probie.Main;
 import net.minecraft.command.CommandBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.CommandException;
 import net.minecraft.entity.player.EntityPlayer;
-import com.programe.probie.ProgrameTool.Computer.Windows;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class BanProperties extends CommandBase {
@@ -31,11 +31,8 @@ public class BanProperties extends CommandBase {
             if (iCommandSender.getName().equals(Main.getHostName())) {
                 if (strings.length == 0) {
                     if (Main.getBanProperties().connection()) {
-                        if (Windows.open(Main.getBanProperties().getFilePath())) {
-                            iCommandSender.sendMessage(new TextComponentTranslation("你打开了配置文件(" + Main.getBanProperties().getFilePath() + ")"));
-                        } else {
-                            iCommandSender.sendMessage(new TextComponentTranslation("出现了未知的错误"));
-                        }
+                        Windows.open(Main.getBanProperties().getFilePath());
+                        iCommandSender.sendMessage(new TextComponentTranslation("正在打开配置文件(" + Main.getBanProperties().getFilePath() + ")"));
                     } else {
                         iCommandSender.sendMessage(new TextComponentTranslation("配置文件加载失败"));
                     }

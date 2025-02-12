@@ -7,16 +7,17 @@
 
 package com.mod.forge.mc.probie;
 
+import api.Windows;
+import api.Properties;
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import com.mod.forge.mc.probie.command.*;
 import net.minecraftforge.fml.common.Mod;
+import com.mod.forge.mc.probie.command.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import com.programe.probie.ProgrameTool.Computer.Windows;
-import com.programe.probie.ProgrameTool.Datasql.Properties;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
@@ -96,6 +97,7 @@ public class Main {
         //TODO
     }
 
+    @Deprecated
     public static String getComputerUUID() {
         String computerUUID = "null";
         try {

@@ -1,19 +1,11 @@
-package com.programe.probie.ProgrameTool.Computer;
+package api;
 
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
-import java.util.Scanner;
-import java.util.Calendar;
 import java.util.ArrayList;
 import java.nio.charset.StandardCharsets;
 import javax.swing.filechooser.FileSystemView;
-import java.util.concurrent.atomic.AtomicBoolean;
-import com.programe.probie.ProgrameTool.Type.Show;
-import com.programe.probie.ProgrameTool.Type.Time;
-import com.programe.probie.ProgrameTool.Computer.misc.Mouse;
-import com.programe.probie.ProgrameTool.Computer.misc.Screen;
-import com.programe.probie.ProgrameTool.Computer.misc.Picture;
 
 public class Windows {
 
@@ -25,14 +17,12 @@ public class Windows {
         }
     }
 
-    public static boolean open(String path) {
+    public static void open(String path) {
         try {
             Desktop.getDesktop().open(new File(path));
-            return true;
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-        return false;
     }
 
     public static String readFile(String path) {
@@ -87,54 +77,6 @@ public class Windows {
         open(getTempPath()+"\\"+"information.vbs");
     }
 
-    public static Object getInput(Show show) {
-        if (show==Show.Frame) {
-            JFrame frame = new JFrame();
-            JTextField textField = new JTextField();
-            JButton defineButton = new JButton("Define");
-            JButton cancelButton = new JButton("Cancel");
-            AtomicBoolean isReturn = new AtomicBoolean(false);
-
-            frame.setSize(300,100);
-            frame.setUndecorated(true);
-            frame.setOpacity(0.9f);
-            frame.setLayout(null);
-
-            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-            frame.setLocation(dimension.width/2-frame.getWidth()/2,dimension.height/2-frame.getWidth()/2);
-
-            textField.setFont(new Font("宋体",Font.BOLD,30));
-            textField.setBounds(0,0,frame.getWidth(),frame.getHeight()/2);
-            frame.add(textField);
-
-            defineButton.setBounds(0,frame.getHeight()/2,frame.getWidth()/2,frame.getHeight()/2);
-            defineButton.addActionListener(actionEvent -> {
-                isReturn.set(true);
-                frame.dispose();
-            });
-            frame.add(defineButton);
-
-            cancelButton.setBounds(frame.getWidth()/2,frame.getHeight()/2,frame.getWidth()/2,frame.getHeight()/2);
-            cancelButton.addActionListener(actionEvent -> frame.dispose());
-            frame.add(cancelButton);
-            frame.setVisible(true);
-
-            while (frame.isVisible()) {
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
-            }
-            if (isReturn.get()) return textField.getText();
-        } else if (show==Show.Cmd) {
-            System.out.print("> ");
-            Scanner scanner = new Scanner(System.in);
-            return scanner.nextLine();
-        }
-        return null;
-    }
-
     public static File getChosenFile() {
         JFileChooser jFileChooser = new JFileChooser();
         jFileChooser.setCurrentDirectory(new File("D:\\"));
@@ -176,22 +118,4 @@ public class Windows {
     public static String getHere() {return System.getProperty("user.dir");}
     public static String getTempPath() {return System.getenv().get("TEMP");}
     public static String getDesktopPath() {return FileSystemView.getFileSystemView().getHomeDirectory().getAbsolutePath();}
-
-
-    public static int getTime(Time time) {
-        switch (time) {
-            case Year: return Calendar.getInstance().get(Calendar.YEAR);
-            case Month: return Calendar.getInstance().get(Calendar.MONTH)+1;
-            case Day: return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-            case Hour: return Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-            case Minute: return Calendar.getInstance().get(Calendar.MINUTE);
-            case Second: return Calendar.getInstance().get(Calendar.SECOND);
-        }
-        return -1;
-    }
-
-    public static Mouse getMouseTool() {return new Mouse();}
-    public static Picture getPictureTool() {return new Picture();}
-    public static Screen getScreenTool() {return new Screen();}
-
 }
