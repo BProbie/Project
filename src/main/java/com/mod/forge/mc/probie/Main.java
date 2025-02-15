@@ -97,7 +97,6 @@ public class Main {
         //TODO
     }
 
-    @Deprecated
     public static String getComputerUUID() {
         String computerUUID = "null";
         try {
